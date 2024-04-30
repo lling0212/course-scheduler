@@ -12,4 +12,9 @@ public class Calendar {
     private Map<String, CalendarTile> scheduleByDepartment;
     private Map<String, CalendarTile> scheduleByInstructor;
 
+    /**
+     * Constructor takes in a Courses object and initialize all schedules to be empty initially
+     *
+     */
+
 }
