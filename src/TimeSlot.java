@@ -12,4 +12,8 @@ public class TimeSlot {
         daysInWeek = days;
     }
 
+    public String getStartTime(){
+        return startTime;
+    }
+
 }
