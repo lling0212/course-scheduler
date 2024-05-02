@@ -58,7 +58,7 @@ public interface ICalendar {
      * @return a list of sets, each set containing courses where no 2 course nodes have a
      * conflict between them
      */
-    List<Set<Course>> generateIndepSets();
+    List<Set<Course>> generateIndepSets(List<Set<Course>> conflictSets);
 
     /**
      *
@@ -76,6 +76,11 @@ public interface ICalendar {
      */
     List<CalendarTile> getCourseByInstructor(String instructor);
 
+    /**
+     *
+     * @return a list of CalendarTile containing the entire schedule
+     */
+    List<CalendarTile> getSchedule();
 
     /******** Complete functions above this line first ********/
 

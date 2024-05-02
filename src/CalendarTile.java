@@ -32,6 +32,12 @@ public class CalendarTile {
         timeSlot = ts;
     }
 
+
+    /**
+     * TODO
+     * Change this based on CLI design
+     * @return the calendar tile in formatted string representation
+     */
     public String toString(){
         String blank = "";
         blank += course.getCourseID();

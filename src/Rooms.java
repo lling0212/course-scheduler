@@ -1,30 +1,36 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Rooms {
 
-    private HashMap<String, Room> departmentToRoom = new HashMap<String, Room>();
+    private Map<String, List<Room>> departmentToRoom = new HashMap<>();
 
-    private HashMap<Integer, Room> idToRoom = new HashMap<Integer, Room>();
+    private Map<Integer, Room> idToRoom = new HashMap<>();
     public Rooms(){
     }
 
-    public void setDepartment(String department, Room room){
-        departmentToRoom.put(department, room);
-    }
-    public Room getDepartmentRoom(String department){
-        return departmentToRoom.get(department);
-    }
-    public void setRoomID(int id, Room room){
+    public void addRoom(Room room) {
+        String dep = room.getDepartment();
+        int id = room.getRoomID();
+        if (!departmentToRoom.containsKey(dep)) {
+            List<Room> list = new ArrayList<>();
+            list.add(room);
+            departmentToRoom.put(dep, list);
+        } else {
+            departmentToRoom.get(dep).add(room);
+        }
+
         idToRoom.put(id, room);
     }
-    public Room getRoomById(int id){
-        return idToRoom.get(id);
+
+    public List<Room> getRoomsByDepartment(String department) {
+        return departmentToRoom.get(department);
     }
 
-
-
-
-
-
+    public Room getRoomById(int id) {
+        return idToRoom.get(id);
+    }
 
 }
