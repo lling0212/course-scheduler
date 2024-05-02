@@ -77,6 +77,8 @@ public interface ICalendar {
     List<CalendarTile> getCourseByInstructor(String instructor);
 
 
+    /******** Complete functions above this line first ********/
+
     /**
      * Generate a non-conflicting schedule based on the input graph (Courses), taking into
      * timeslot preferences within each set
@@ -88,6 +90,6 @@ public interface ICalendar {
     /**
      * Takes in a schedule and prints it out to terminal in a formatted manner
      */
-    void printSchedule(List<CalendarTile>);
+    void printSchedule(List<CalendarTile> schedule);
 
 }
