@@ -47,6 +47,11 @@ public class Calendar implements ICalendar {
     }
 
     @Override
+    public List<CalendarTile> getSchedule() {
+        return null;
+    }
+
+    @Override
     public void generateScheduleWithPref() {
 
     }
