@@ -212,5 +212,17 @@ public class CoursesTest {
 
     }
 
+    @Test
+    public void getAllCourses() {
+        Courses c = new Courses();
+        Rooms rooms = new Rooms();
+        Course newC = new Course("316", "Chemistry", 312, "Handanovich", rooms);
+        Course class2 = new Course("212", "Gym", 112, "Martinez", rooms);
+        Course class3 = new Course("12", "Hockey", 4, "Mayo", rooms);
+        c.addNode(newC);
+        c.addNode(class2);
+        c.addNode(class3);
+        assertEquals(3, c.getAllCourses().size());
+    }
 
 }

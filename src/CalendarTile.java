@@ -11,26 +11,26 @@ public class CalendarTile {
         timeSlot = time;
     }
 
-    public Room getRoom(){
-        return room;
-    }
-    public void setRoom(Room r){
-        room = r;
-    }
+//    public Room getRoom(){
+//        return room;
+//    }
+//    public void setRoom(Room r){
+//        room = r;
+//    }
 
     public Course getCourse(){
         return course;
     }
-    public void setCourse(Course c){
-        course = c;
-    }
+//    public void setCourse(Course c){
+//        course = c;
+//    }
 
     public TimeSlot getTimeSlot(){
         return timeSlot;
     }
-    public void setTimeSlot(TimeSlot ts){
-        timeSlot = ts;
-    }
+//    public void setTimeSlot(TimeSlot ts){
+//        timeSlot = ts;
+//    }
 
 
     /**
@@ -40,16 +40,14 @@ public class CalendarTile {
      */
     public String toString(){
         String blank = "";
-        blank += course.getCourseID();
-        blank += ", ";
+        blank += course.toString();
+        blank += "Location: ";
         blank += room.getRoomNumber();
         blank += ", ";
-        blank += timeSlot.getStartTime();
-        blank += ", ";
-
+        blank += room.getBuilding();
+        blank += "\n";
         return blank;
     }
-
 
 
 }
