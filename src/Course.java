@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Objects;
 
 public class Course {
     private String courseID;
@@ -27,13 +28,14 @@ public class Course {
 
         // Assume rooms are sorted by capacity from small to large
         // Assume all courses can be matched to a room
-        for (int i = 0; i < departmentRooms.size(); i++) {
-            if (capacity <= departmentRooms.get(i).getCapacity()) {
-                this.room = departmentRooms.get(i).getRoomID();
-                break;
+        if (departmentRooms != null) {
+            for (int i = 0; i < departmentRooms.size(); i++) {
+                if (capacity <= departmentRooms.get(i).getCapacity()) {
+                    this.room = departmentRooms.get(i).getRoomID();
+                    break;
+                }
             }
         }
-
     }
 
     public String getCourseID(){
@@ -66,5 +68,29 @@ public class Course {
 
     public int getRoom() {return room;}
     public void setRoom(int r) { this.room = r; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Course course = (Course) o;
+        return capacity == course.capacity && room == course.room && Objects.equals(courseID, course.courseID) && Objects.equals(department, course.department) && Objects.equals(instructorName, course.instructorName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseID, department, capacity, instructorName, room);
+    }
+
+    @Override
+    public String toString() {
+        return "CourseID: " + courseID + "\n"
+                + "Department: " + department + "\n"
+                + "Instructor: " + instructorName + "\n";
+    }
 
 }
