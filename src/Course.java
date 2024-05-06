@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Course {
+    //test
     private String courseID;
     private String department;
     private int capacity;
