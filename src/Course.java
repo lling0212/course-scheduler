@@ -8,6 +8,7 @@ public class Course {
     private int capacity;
     private String instructorName;
     private int room;
+    private String building;
 
     /**
      * Creates a new course object and assigns it to a room in its department
@@ -33,10 +34,14 @@ public class Course {
             for (int i = 0; i < departmentRooms.size(); i++) {
                 if (capacity <= departmentRooms.get(i).getCapacity()) {
                     this.room = departmentRooms.get(i).getRoomID();
+                    this.building = departmentRooms.get(i).getBuilding();
                     break;
                 }
             }
         }
+    }
+    public String getBuilding(){
+        return building;
     }
 
     public String getCourseID(){

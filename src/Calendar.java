@@ -172,7 +172,7 @@ public class Calendar implements ICalendar {
         List<CalendarTile> result = new ArrayList<>();
         for (CalendarTile ct : this.schedule) {
             String myDepartment = ct.getCourse().getDepartment();
-            if (myDepartment == department) {
+            if (Objects.equals(myDepartment, department)) {
                 result.add(ct);
             }
         }
