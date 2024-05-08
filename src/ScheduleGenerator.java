@@ -6,7 +6,6 @@ public class ScheduleGenerator {
     private static Rooms rooms = new Rooms();
     private static Calendar cal;
     private static HashMap<Integer, String> timeMap = new HashMap<Integer, String>();
-    private static HashMap<Integer, List<String>> adminMap = new HashMap<Integer, List<String>>();
 
 
 
@@ -84,6 +83,9 @@ public class ScheduleGenerator {
         courses.addNode(course7);
         courses.addNode(course8);
     }
+    public Courses getCourses(){
+        return courses;
+    }
 
     /** Fills in set of rooms available
      *
@@ -108,6 +110,10 @@ public class ScheduleGenerator {
         rooms.addRoom(room7);
         rooms.addRoom(room8);
 
+    }
+
+    public Rooms getRooms(){
+        return rooms;
     }
 
     /**
@@ -549,6 +555,9 @@ public class ScheduleGenerator {
         Course newCourse = new Course(id, dept, cap, name, rooms);
         courses.addNode(newCourse);
         return newCourse;
+    }
+    public static HashMap<Integer, String> getTimeMap(){
+        return timeMap;
     }
 
     /**
