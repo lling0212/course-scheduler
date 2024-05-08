@@ -34,7 +34,6 @@ public class CalendarTile {
 
 
     /**
-     * TODO
      * Change this based on CLI design
      * @return the calendar tile in formatted string representation
      */
