@@ -6,6 +6,7 @@ public class ScheduleGenerator {
     private static Rooms rooms = new Rooms();
     private static Calendar cal;
     private static HashMap<Integer, String> timeMap = new HashMap<Integer, String>();
+    private static HashMap<Integer, List<String>> adminMap = new HashMap<Integer, List<String>>();
 
 
 
@@ -88,14 +89,14 @@ public class ScheduleGenerator {
      *
      */
     public static void roomFiller() {
-        Room room1 = new Room(1, 30, "1", "Bart", "Chemistry");
+        Room room1 = new Room(1, 50, "1", "Bart", "Chemistry");
         Room room2 = new Room(2, 29, "2", "Macao", "Spanish");
-        Room room3 = new Room(3, 40, "3", "Bart", "Chemistry");
+        Room room3 = new Room(3, 100, "3", "Bart", "Chemistry");
         Room room4 = new Room(4, 25, "4", "Philly", "Alchemy");
         Room room5 = new Room(5, 30, "5", "Macao", "Spanish");
         Room room6 = new Room(6, 35, "6", "Philly", "Alchemy");
-        Room room7 = new Room(7, 40, "7", "Macao", "Spanish");
-        Room room8 = new Room(8, 45, "8", "Dexter", "Geography");
+        Room room7 = new Room(7, 60, "7", "Macao", "Spanish");
+        Room room8 = new Room(8, 65, "8", "Dexter", "Geography");
 
 
         rooms.addRoom(room1);
@@ -119,20 +120,33 @@ public class ScheduleGenerator {
         cal.generateSchedule();
         List<CalendarTile> instruc = cal.getCourseByDepartment(name);
         printTimes();
-
-        HashMap<String, CalendarTile> mwfClasses = new HashMap<String, CalendarTile>();
-        HashMap<String, CalendarTile> ttClasses = new HashMap<String, CalendarTile>();
+        HashMap<String, List<CalendarTile>> mwfClasses = new HashMap<String, List<CalendarTile>>();
+        HashMap<String, List<CalendarTile>> ttClasses = new HashMap<String, List<CalendarTile>>();
         for (CalendarTile tile : instruc) {
             if (Objects.equals(tile.getTimeSlot().getDaysInWeek(), "MWF")) {
-                mwfClasses.put(tile.getTimeSlot().getStartTime(), tile);
+                // if not yet a list
+                if(!mwfClasses.containsKey(tile.getTimeSlot().getStartTime())){
+                    ArrayList<CalendarTile> tiles = new ArrayList<CalendarTile>();
+                    tiles.add(tile);
+                    mwfClasses.put(tile.getTimeSlot().getStartTime(), tiles);
+                } else {
+                    mwfClasses.get(tile.getTimeSlot().getStartTime()).add(tile);
+                }
+                // if a list
             } else {
-                ttClasses.put(tile.getTimeSlot().getStartTime(), tile);
+                if(!ttClasses.containsKey(tile.getTimeSlot().getStartTime())){
+                    ArrayList<CalendarTile> tiles = new ArrayList<CalendarTile>();
+                    tiles.add(tile);
+                    ttClasses.put(tile.getTimeSlot().getStartTime(), tiles);
+                } else {
+                    ttClasses.get(tile.getTimeSlot().getStartTime()).add(tile);
+                }
             }
         }
         // maybe create a map of cour
         for (int i = 0; i < 28; i++) {
 
-            printRow(i, mwfClasses, ttClasses);
+            printRowDept(i, mwfClasses, ttClasses);
         }
     }
 
@@ -168,6 +182,187 @@ public class ScheduleGenerator {
 
     public static void printTimes() {
         System.out.println("               M                  T                  W                 TH                  F");
+    }
+
+
+    public static void printRowDept(int rowNum, HashMap<String, List<CalendarTile>> mwfClasses,
+                                    HashMap<String, List<CalendarTile>> ttClasses) {
+        String time = timeMap.get(rowNum);
+        String tGet = "";
+        if (rowNum < 6) {
+            tGet = "8AM";
+        } else if (rowNum < 12) {
+            tGet = "10AM";
+        } else if (rowNum < 18) {
+            tGet = "12PM";
+        } else if (rowNum < 24) {
+            tGet = "2PM";
+        } else if (rowNum < 30) {
+            tGet = "4PM";
+        }
+        List<CalendarTile> mwClass = mwfClasses.get(tGet);
+        List<CalendarTile> ttClass = ttClasses.get(tGet);
+        String row = "";
+        String head = "";
+        if (rowNum % 6 == 0) {
+            row += time;
+            row += "   ";
+            head = "Course ID: ";
+            row += deptRowSetter(mwClass, ttClass, head);
+
+        } else if (rowNum % 6 == 1) {
+            row += "     ";
+            head = "Room: ";
+            row += deptRowSetter(mwClass, ttClass, head);
+
+        } else if (rowNum % 6 == 2) {
+            row += "     ";
+            head = "Bldg: ";
+            row += deptRowSetter(mwClass, ttClass, head);
+        }
+        else if (rowNum % 6 == 3) {
+            row += "     ";
+            head = "Dept: ";
+            row += deptRowSetter(mwClass, ttClass, head);
+        }
+        System.out.println(row);
+
+    }
+
+    /** sets the rows for department print
+     *
+     * @param mwClass
+     * @param ttClass
+     * @param header
+     * @return
+     */
+    public static String deptRowSetter(List<CalendarTile> mwClass, List<CalendarTile> ttClass, String header) {
+        String row = "";
+        String mWAddition = "";
+        String ttAddition = "";
+        if (Objects.equals(header, "Course ID: ")) {
+            if(mwClass != null){
+                for(int i = 0; i < mwClass.size(); i++){
+                    mWAddition += mwClass.get(i).getCourse().getCourseID();
+                    mWAddition += " ";
+                }
+            } else {
+                mWAddition = "";
+            }
+            if(ttClass != null){
+                for(int i = 0; i < ttClass.size(); i++){
+                    ttAddition += ttClass.get(i).getCourse().getCourseID();
+                    ttAddition += " ";
+                }
+            } else {
+                ttAddition = "";
+            }
+        }
+        if (Objects.equals(header, "Room: ")) {
+
+            if(mwClass != null){
+
+                for(int i = 0; i < mwClass.size(); i++){
+                    mWAddition += String.valueOf((mwClass.get(i).getCourse().getRoom()));
+                    mWAddition += " ";
+                }
+            } else {
+                mWAddition = "";
+            }
+            if(ttClass != null){
+                for(int i = 0; i < ttClass.size(); i++){
+                    ttAddition += String.valueOf((ttClass.get(i).getCourse().getRoom()));
+                    ttAddition += " ";
+                }
+
+            } else {
+                ttAddition = "";
+            }
+        }
+        if (Objects.equals(header, "Bldg: ")) {
+
+
+            if(mwClass != null){
+
+                for(int i = 0; i < mwClass.size(); i++){
+                    mWAddition += String.valueOf((mwClass.get(i).getCourse().getBuilding()));
+                    mWAddition += " ";
+                }
+            } else {
+                mWAddition = "";
+            }
+            if(ttClass != null){
+                for(int i = 0; i < ttClass.size(); i++){
+                    ttAddition += String.valueOf((ttClass.get(i).getCourse().getBuilding()));
+                    ttAddition += " ";
+                }
+            } else {
+                ttAddition = "";
+            }
+
+        }
+        if (Objects.equals(header, "Dept: ")) {
+
+            if(mwClass != null){
+
+                mWAddition += String.valueOf((mwClass.get(0).getCourse().getDepartment()));
+
+            } else {
+                mWAddition = "";
+            }
+            if(ttClass != null){
+                ttAddition += String.valueOf((ttClass.get(0).getCourse().getDepartment()));
+
+
+            } else {
+                ttAddition = "";
+            }
+
+        }
+        int mwCount = 0;
+        for (int i = 0; i < 5; i++) {
+            int count = 0;
+            if (i % 2 == 0) {
+                if (mwClass != null) {
+                    row += header;
+                    count += header.length();
+                    row += mWAddition;
+                    if(mWAddition != null){
+                        count += mWAddition.length();
+                    }
+                    while(count < 20 && mwCount < 2){
+                        row += " ";
+                        count++;
+                    }
+                } else {
+                    while(count < 20 && mwCount < 2){
+                        row += " ";
+                        count++;
+                    }
+                }
+                mwCount ++;
+            } else {
+                if (ttClass != null) {
+                    row += header;
+                    count += header.length();
+                    row += ttAddition;
+                    if(ttAddition != null){
+                        count += ttAddition.length();
+                    }
+                    while(count < 20){
+                        row += " ";
+                        count++;
+                    }
+                } else {
+                    while(count < 20){
+                        row += " ";
+                        count++;
+                    }
+                }
+            }
+
+        }
+        return row;
     }
 
     /**
@@ -235,7 +430,7 @@ public class ScheduleGenerator {
             if(mwClass != null){
                 mWAddition = mwClass.getCourse().getCourseID();
             } else {
-                ttAddition = "";
+                mWAddition = "";
             }
             if(ttClass != null){
                 ttAddition = ttClass.getCourse().getCourseID();
@@ -249,7 +444,7 @@ public class ScheduleGenerator {
             if(mwClass != null){
                 mWAddition = String.valueOf(((mwClass.getCourse()).getRoom()));
             } else {
-                ttAddition = "";
+                mWAddition = "";
             }
             if(ttClass != null){
                 ttAddition =  String.valueOf(((ttClass.getCourse()).getRoom()));
@@ -264,7 +459,7 @@ public class ScheduleGenerator {
             if(mwClass != null){
                 mWAddition = mwClass.getCourse().getBuilding();
             } else {
-                ttAddition = "";
+                mWAddition = "";
             }
             if(ttClass != null){
                 ttAddition = ttClass.getCourse().getBuilding();
@@ -279,7 +474,7 @@ public class ScheduleGenerator {
             if(mwClass != null){
                 mWAddition = mwClass.getCourse().getDepartment();
             } else {
-                ttAddition = "";
+                mWAddition = "";
             }
             if(ttClass != null){
                 ttAddition = ttClass.getCourse().getDepartment();
