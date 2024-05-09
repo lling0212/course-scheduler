@@ -12,6 +12,16 @@ public class CoursesTest {
         c.addNode(newC);
         assertTrue(c.getGraph().containsKey(newC));
     }
+
+    @Test
+    public void addNodeExist() {
+        Courses c = new Courses();
+        Rooms rooms = new Rooms();
+        Course newC = new Course("316", "Chemistry", 312, "Handanovich", rooms);
+        c.addNode(newC);
+        assertFalse(c.addNode(newC));
+    }
+
     @Test
     public void addNode2() {
         Courses c = new Courses();
@@ -38,6 +48,19 @@ public class CoursesTest {
         c.addEdge(newC, class2);
         assertEquals(1, ((c.getGraph()).get(class2)).size());
         assertEquals(1, ((c.getGraph()).get(newC)).size());
+    }
+
+    @Test
+    public void addEdgeInvalid() {
+        Courses c = new Courses();
+        Rooms rooms = new Rooms();
+
+        Course newC = new Course("316", "Chemistry", 312, "Handanovich", rooms);
+        Course class2 = new Course("212", "Gym", 112, "Martinez", rooms);
+        assertTrue(c.addEdge(newC, class2));
+        c.addNode(newC);
+        assertFalse(c.addEdge(newC, class2));
+
     }
 
     @Test

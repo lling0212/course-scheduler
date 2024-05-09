@@ -11,26 +11,13 @@ public class CalendarTile {
         timeSlot = time;
     }
 
-//    public Room getRoom(){
-//        return room;
-//    }
-//    public void setRoom(Room r){
-//        room = r;
-//    }
-
     public Course getCourse(){
         return course;
     }
-//    public void setCourse(Course c){
-//        course = c;
-//    }
 
     public TimeSlot getTimeSlot(){
         return timeSlot;
     }
-//    public void setTimeSlot(TimeSlot ts){
-//        timeSlot = ts;
-//    }
 
 
     /**

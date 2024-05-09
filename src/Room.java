@@ -24,27 +24,27 @@ public class Room {
     public int getCapacity(){
         return capacity;
     }
-    public void setCapacity(int cap){
-        capacity = cap;
-    }
+//    public void setCapacity(int cap){
+//        capacity = cap;
+//    }
 
-    public void setRoomNum(String num){
-        roomNumber = num;
-    }
+//    public void setRoomNum(String num){
+//        roomNumber = num;
+//    }
     public String getRoomNumber(){
         return roomNumber;
     }
 
-    public void setRoomID(int num){
-        roomID = num;
-    }
+//    public void setRoomID(int num){
+//        roomID = num;
+//    }
     public int getRoomID(){
         return roomID;
     }
 
-    public void setBuilding(String num){
-        building = num;
-    }
+//    public void setBuilding(String num){
+//        building = num;
+//    }
     public String getBuilding(){
         return building;
     }
@@ -52,9 +52,9 @@ public class Room {
     public String getDepartment() {
         return department;
     }
-    public void setDepartment(String department) {
-        this.department = department;
-    }
+//    public void setDepartment(String department) {
+//        this.department = department;
+//    }
 
 
 }

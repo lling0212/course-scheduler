@@ -57,5 +57,23 @@ public class CourseTest {
         assertEquals(expect, crs1.toString());
     }
 
+    @Test
+    public void testCalendarTileString() {
+        Rooms rooms = new Rooms();
+        Room room1 = new Room(1, 350, "101", "Chem", "Dep");
+        Course crs = new Course("316", "Chemistry", 312, "Handanovich", rooms);
+        CalendarTile tile = new CalendarTile(room1, crs, TimeSlotFactory.getTimeSlot(10));
+        String expect = "CourseID: " + "316" + "\n"
+                + "Department: " + "Chemistry" + "\n"
+                + "Instructor: " + "Handanovich" + "\n"
+                + "Location: " + "101" + ", " + "Chem\n";
+        assertEquals(expect, tile.toString());
+    }
+
+    @Test
+    public void testTimeSlot() {
+        assertEquals("4PM", TimeSlotFactory.getTimeSlot(10).getStartTime());
+        assertEquals("TTh", TimeSlotFactory.getTimeSlot(10).getDaysInWeek());
+    }
 
 }
