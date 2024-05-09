@@ -83,10 +83,60 @@ public class ScheduleGeneratorTest {
         String expected = "Course ID: 1                            Course ID: 1                            Course ID: 1 ";
         assertEquals(sgs.deptRowSetter(cwl, ctl, "Course ID: "), expected);
     }
+    @Test
+    public void deptRowSetter2() {
+        ScheduleGenerator sgs = new ScheduleGenerator();
+        Room r = new Room(1, 29, "2", "Mar1", "UFC");
+        Rooms rs = new Rooms();
+        rs.addRoom(r);
+        Course c = new Course("1", "UFC", 12, "Roger", rs);
+        TimeSlot ts = new TimeSlot(1, "8AM", "10AM", "MWF");
+        CalendarTile ct = new CalendarTile(r, c, ts);
+        CalendarTile cw = null;
+        ArrayList<CalendarTile> cwl = new ArrayList<CalendarTile>();
+        cwl.add(ct);
+        ArrayList<CalendarTile> ctl = null;
+        String expected = "Dept: UFC                               Dept: UFC                               Dept: UFC";
+        assertEquals(sgs.deptRowSetter(cwl, ctl, "Dept: "), expected);
+    }
+    @Test
+    public void deptRowSetter3() {
+        ScheduleGenerator sgs = new ScheduleGenerator();
+        Room r = new Room(1, 29, "2", "Mar1", "UFC");
+        Rooms rs = new Rooms();
+        rs.addRoom(r);
+        Course c = new Course("1", "UFC", 12, "Roger", rs);
+        TimeSlot ts = new TimeSlot(1, "8AM", "10AM", "MWF");
+        CalendarTile ct = new CalendarTile(r, c, ts);
+        CalendarTile cw = null;
+        ArrayList<CalendarTile> cwl = new ArrayList<CalendarTile>();
+        cwl.add(ct);
+        ArrayList<CalendarTile> ctl = null;
+        String expected = "Bldg: Mar1                              Bldg: Mar1                              Bldg: Mar1 ";
+        assertEquals(sgs.deptRowSetter(cwl, ctl, "Bldg: "), expected);
+    }
+    @Test
+    public void deptRowSetter5() {
+        ScheduleGenerator sgs = new ScheduleGenerator();
+        Room r = new Room(1, 29, "2", "Mar1", "UFC");
+        Rooms rs = new Rooms();
+        rs.addRoom(r);
+        Course c = new Course("1", "UFC", 12, "Roger", rs);
+        TimeSlot ts = new TimeSlot(1, "8AM", "10AM", "MWF");
+        CalendarTile ct = new CalendarTile(r, c, ts);
+        CalendarTile cw = null;
+        ArrayList<CalendarTile> cwl = new ArrayList<CalendarTile>();
+        cwl.add(ct);
+        ArrayList<CalendarTile> ctl = null;
+        String expected = "Room: 1                                 Room: 1                                 Room: 1 ";
+        assertEquals(sgs.deptRowSetter(cwl, ctl, "Room: "), expected);
+    }
+
 
 
     @Test
     public void rowSetter() {
+        //row set test
         ScheduleGenerator sgs = new ScheduleGenerator();
         Room r = new Room(1, 29, "2", "Mar1", "UFC");
         Rooms rs = new Rooms();
@@ -97,6 +147,45 @@ public class ScheduleGeneratorTest {
         CalendarTile cw = null;
         String expected = "Course ID: 1                            Course ID: 1                            Course ID: 1";
         assertEquals(sgs.rowSetter(ct, cw, "Course ID: "), expected);
+    }
+    @Test
+    public void rowSetter2() {
+        ScheduleGenerator sgs = new ScheduleGenerator();
+        Room r = new Room(1, 29, "2", "Mar1", "UFC");
+        Rooms rs = new Rooms();
+        rs.addRoom(r);
+        Course c = new Course("1", "UFC", 12, "Roger", rs);
+        TimeSlot ts = new TimeSlot(1, "8AM", "10AM", "MWF");
+        CalendarTile ct = new CalendarTile(r, c, ts);
+        CalendarTile cw = null;
+        String expected = "Dept: UFC                               Dept: UFC                               Dept: UFC";
+        assertEquals(sgs.rowSetter(ct, cw, "Dept: "), expected);
+    }
+    @Test
+    public void rowSetter3() {
+        ScheduleGenerator sgs = new ScheduleGenerator();
+        Room r = new Room(1, 29, "2", "Mar1", "UFC");
+        Rooms rs = new Rooms();
+        rs.addRoom(r);
+        Course c = new Course("1", "UFC", 12, "Roger", rs);
+        TimeSlot ts = new TimeSlot(1, "8AM", "10AM", "MWF");
+        CalendarTile ct = new CalendarTile(r, c, ts);
+        CalendarTile cw = null;
+        String expected = "Bldg: Mar1                              Bldg: Mar1                              Bldg: Mar1";
+        assertEquals(sgs.rowSetter(ct, cw, "Bldg: "), expected);
+    }
+    @Test
+    public void rowSetter4() {
+        ScheduleGenerator sgs = new ScheduleGenerator();
+        Room r = new Room(1, 29, "2", "Mar1", "UFC");
+        Rooms rs = new Rooms();
+        rs.addRoom(r);
+        Course c = new Course("1", "UFC", 12, "Roger", rs);
+        TimeSlot ts = new TimeSlot(1, "8AM", "10AM", "MWF");
+        CalendarTile ct = new CalendarTile(r, c, ts);
+        CalendarTile cw = null;
+        String expected = "Room: 1                                 Room: 1                                 Room: 1";
+        assertEquals(sgs.rowSetter(ct, cw, "Room: "), expected);
     }
 
 
