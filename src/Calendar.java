@@ -47,27 +47,6 @@ public class Calendar implements ICalendar {
         }
     }
 
-//    private void setSchedule(List<Course> schedule) {
-//        for (Course course : schedule) {
-//            boolean flag = false;
-//            for (CalendarTile ct : this.schedule) {
-//                Course myCourse = ct.getCourse();
-//                if (myCourse.hashCode() == course.hashCode()) {
-//                    myCourse.setCapactiy(course.getCapacity());
-//                    myCourse.setCourseID(course.getCourseID());
-//                    myCourse.setDepartment(course.getDepartment());
-//                    myCourse.setInstructor(course.getInstructor());
-//                    myCourse.setRoom(course.getRoom());
-//                    flag = true;
-//                    break;
-//                }
-//            }
-//            if (!flag) {
-//                CalendarTile ct = new CalendarTile(null, course, null);
-//                this.schedule.add(ct);
-//            }
-//        }
-//    }
 
     private int find(int x) {
         if (parent[x] != x) {
@@ -203,39 +182,5 @@ public class Calendar implements ICalendar {
         return schedule;
     }
 
-//    private static class UnionFind {
-//        private int[] parent;
-//        private int[] size;
-//
-//        public UnionFind(int n) {
-//            parent = new int[n];
-//            size = new int[n];
-//            for (int i = 0; i < n; i++) {
-//                parent[i] = i;
-//                size[i] = 1;
-//            }
-//        }
-//
-//        public int find(int x) {
-//            if (parent[x] != x) {
-//                parent[x] = find(parent[x]);
-//            }
-//            return parent[x];
-//        }
-//
-//        public void union(int x, int y) {
-//            int rootX = find(x);
-//            int rootY = find(y);
-//            if (rootX == rootY) {
-//                return;
-//            }
-//            if (size[rootX] < size[rootY]) {
-//                parent[rootX] = rootY;
-//                size[rootY] += size[rootX];
-//            } else {
-//                parent[rootY] = rootX;
-//                size[rootX] += size[rootY];
-//            }
-//        }
-//    }
+
 }

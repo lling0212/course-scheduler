@@ -82,8 +82,6 @@ public interface ICalendar {
      */
     List<CalendarTile> getSchedule();
 
-    /******** Complete functions above this line first ********/
-
     /**
      * Takes in a schedule and prints it out to terminal in a formatted manner
      */

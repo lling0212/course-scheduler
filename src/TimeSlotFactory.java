@@ -57,8 +57,5 @@ public class TimeSlotFactory {
         return created.get(id);
     }
 
-    public static List<TimeSlot> getAllTimeSlots() {
-        return allTimes;
-    }
 
 }
